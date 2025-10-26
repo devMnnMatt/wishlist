@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Articoli preferiti di Matteo. Idee di regalo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "SF Pro Display", Arial, sans-serif;
+      background: #0f0f0f;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      padding: 20px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .filters select, .filters input {
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .card h3 {
+      margin: 10px 0 5px;
+      font-size: 1.1em;
+    }
+
+    .card p {
+      margin: 0;
+      opacity: 0.8;
+    }
+
+    .card:last-child {
+      border: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 0 12px rgba(255,255,255,0.15);
+    }
+
+    /* Popup */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .modal-content {
+      background: rgba(30,30,30,0.9);
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-content img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .close-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: all 0.2s ease;
+    }
+
+    .close-button:hover {
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="filters">
+      <select id="categoryFilter">
+        <option value="">Tutte le categorie</option>
+      </select>
+      <input type="number" id="minPrice" placeholder="Prezzo min">
+      <input type="number" id="maxPrice" placeholder="Prezzo max">
+      <select id="sortOrder">
+        <option value="">Ordina per</option>
+        <option value="asc">Prezzo crescente</option>
+        <option value="desc">Prezzo decrescente</option>
+      </select>
+    </div>
+
+    <div id="productGrid" class="grid"></div>
+  </div>
+
+  <!-- Modal -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <img id="modalImg" src="">
+      <h2 id="modalName"></h2>
+      <p id="modalCategory"></p>
+      <p id="modalPrice"></p>
+      <p id="modalDescription"></p>
+      <button class="close-button" onclick="closeModal()">Chiudi</button>
+    </div>
+  </div>
+
+  <script>
+    // Carica i prodotti da prodotti.json
+    async function loadProducts() {
+      try {
+        const response = await fetch('prodotti.json');
+        if (!response.ok) throw new Error("Impossibile caricare prodotti.json");
+        const products = await response.json();
+        return products;
+      } catch (err) {
+        console.warn("Errore caricando prodotti.json, uso localStorage");
+        const stored = localStorage.getItem('prodotti');
+        return stored ? JSON.parse(stored) : [];
+      }
+    }
+
+    async function renderProducts() {
+      const products = await loadProducts();
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = "";
+
+      const min = parseFloat(document.getElementById('minPrice').value) || 0;
+      const max = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+      const cat = document.getElementById('categoryFilter').value;
+      const sort = document.getElementById('sortOrder').value;
+
+      let filtered = products.filter(p => 
+        (cat === "" || p.categoria === cat) &&
+        p.prezzo >= min && p.prezzo <= max
+      );
+
+      if (sort === "asc") filtered.sort((a,b) => a.prezzo - b.prezzo);
+      if (sort === "desc") filtered.sort((a,b) => b.prezzo - a.prezzo);
+
+      filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${p.immagine}" alt="${p.nome}">
+          <h3>${p.nome}</h3>
+          <p>${p.categoria}</p>
+          <p>${p.prezzo.toFixed(2)} €</p>
+        `;
+        card.onclick = () => openModal(p);
+        grid.appendChild(card);
+      });
+    }
+
+    async function loadCategories() {
+      const products = await loadProducts();
+      const cats = [...new Set(products.map(p => p.categoria))];
+      const select = document.getElementById('categoryFilter');
+      select.innerHTML = '<option value="">Tutte le categorie</option>';
+      cats.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = c;
+        select.appendChild(opt);
+      });
+    }
+
+    function openModal(p) {
+      document.getElementById('modalImg').src = p.immagine;
+      document.getElementById('modalName').textContent = p.nome;
+      document.getElementById('modalCategory').textContent = p.categoria;
+      document.getElementById('modalPrice').textContent = p.prezzo.toFixed(2) + " €";
+      document.getElementById('modalDescription').textContent = p.descrizione;
+      document.getElementById('productModal').style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').style.display = "none";
+    }
+
+    document.querySelectorAll('.filters select, .filters input').forEach(e => {
+      e.addEventListener('input', renderProducts);
+    });
+
+    window.onload = () => {
+      loadCategories();
+      renderProducts();
+    };
+  </script>
+</body>
+</html>
