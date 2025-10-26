@@ -1,0 +1,65 @@
+[
+  {
+    "nome": "WD_BLACK SN7100 2TB NVMe SSD Interno",
+    "categoria": "Informatica",
+    "prezzo": 130,
+    "immagine": "https://m.media-amazon.com/images/I/516yn6znnLL._AC_SL1500_.jpg",
+    "descrizione": "memoria SSD aggiuntiva per il pc."
+  },
+  {
+    "nome": "Valentino Born in Rome",
+    "categoria": "Profumi",
+    "prezzo": 90,
+    "immagine": "https://m.media-amazon.com/images/I/71w9oj9Wp-L._AC_SX679_.jpg",
+    "descrizione": "Profumo Valentino Born in Rome 100ml"
+  },
+  {
+    "nome": "Apple Watch Series 11 Jet black",
+    "categoria": "Informatica",
+    "prezzo": 459,
+    "immagine": "https://m.media-amazon.com/images/I/61QkVRoBiBL._AC_SX679_.jpg",
+    "descrizione": "Apple Watch serie 11 colore Jet Black, cassa 42mm"
+  },
+  {
+    "nome": "YVES SAINT LAURENT MYSLF",
+    "categoria": "Profumi",
+    "prezzo": 90,
+    "immagine": "https://m.media-amazon.com/images/I/61k5WNEcj6L._AC_SY879_.jpg",
+    "descrizione": "Profumo YSL MYSLF 100 ml"
+  },
+  {
+    "nome": "Felpa Ralph Lauren",
+    "categoria": "Abbigliamento",
+    "prezzo": 175,
+    "immagine": "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-1338847_alternate10?$rl_4x5_pdp$",
+    "descrizione": "Felpa Ralph Lauren nera senza cappuccio"
+  },
+  {
+    "nome": "Felpa con cappuccio Ralph Lauren",
+    "categoria": "Abbigliamento",
+    "prezzo": 195,
+    "immagine": "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-AI710881517083_alternate10?$rl_4x5_pdp$",
+    "descrizione": "Felpa con cappuccio e cerniera Ralph Lauren Bianca o Nera"
+  },
+  {
+    "nome": "Nike Air Force 1 '07",
+    "categoria": "Abbigliamento",
+    "prezzo": 120,
+    "immagine": "https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png",
+    "descrizione": "Scarpe Nike Air Force 1 Bianche"
+  },
+  {
+    "nome": "Cintura in Pelle Zara",
+    "categoria": "Abbigliamento",
+    "prezzo": 40,
+    "immagine": "https://static.zara.net/assets/public/42a7/10ff/82f145b9af4a/7d35b2024b70/02823311800-e1/02823311800-e1.jpg?ts=1758710211429&w=750",
+    "descrizione": "Cintura Zara di pelle Intrecciata Nera"
+  },
+  {
+    "nome": "Felpa TAKE OFF FLEECE RED Cold Culture",
+    "categoria": "Abbigliamento",
+    "prezzo": 150,
+    "immagine": "https://coldcultureworldwide.com/cdn/shop/files/take-off-fleece-red-9110300.jpg?v=1760715087&width=1000",
+    "descrizione": "Felpa Cold Culture Rossa"
+  }
+]
