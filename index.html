@@ -32,11 +32,29 @@
 
     .filters select, .filters input {
       padding: 8px 12px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(40, 40, 40, 0.9);
       color: #fff;
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px;
       backdrop-filter: blur(8px);
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .filters select:focus, .filters input:focus {
+      outline: none;
+      border-color: #888;
+    }
+
+    /* 🔹 Menu a tendina scuro */
+    select option {
+      background: #1a1a1a;
+      color: #f0f0f0;
+    }
+
+    select::-ms-expand {
+      display: none; /* rimuove la freccia su Edge */
     }
 
     .grid {
@@ -103,12 +121,16 @@
       max-width: 500px;
       text-align: center;
       position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .modal-content img {
       width: 100%;
       border-radius: 12px;
       margin-bottom: 15px;
+      max-height: 50vh;
+      object-fit: contain;
     }
 
     .close-button {
@@ -160,7 +182,6 @@
   </div>
 
   <script>
-    // Carica i prodotti da prodotti.json
     async function loadProducts() {
       try {
         const response = await fetch('prodotti.json');
@@ -243,4 +264,3 @@
   </script>
 </body>
 </html>
-
