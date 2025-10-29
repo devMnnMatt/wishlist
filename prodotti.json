@@ -1,16 +1,9 @@
 [
   {
-    "nome": "WD_BLACK SN7100 2TB NVMe SSD Interno",
-    "categoria": "Informatica",
-    "prezzo": 130,
-    "immagine": "https://m.media-amazon.com/images/I/516yn6znnLL._AC_SL1500_.jpg",
-    "descrizione": "memoria SSD aggiuntiva per il pc."
-  },
-  {
-    "nome": "Valentino Born in Rome",
+    "nome": "Valentino Born in Rome Intense EDP",
     "categoria": "Profumi",
-    "prezzo": 90,
-    "immagine": "https://m.media-amazon.com/images/I/71w9oj9Wp-L._AC_SX679_.jpg",
+    "prezzo": 100,
+    "immagine": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTAilvrr0fS5ffzzVLNX7mpHOBdZrzFRt2UpPnZdHsKJxyw86Kta6ujf91X4S7Y0vrNvqlYOF3Bgtmtmdo8trQlmn0ZoHCmcECChMjWq8Gx6WAF9-2iVN0Y4LxN",
     "descrizione": "Profumo Valentino Born in Rome 100ml"
   },
   {
@@ -42,13 +35,6 @@
     "descrizione": "Felpa con cappuccio e cerniera Ralph Lauren Bianca o Nera"
   },
   {
-    "nome": "Nike Air Force 1 '07",
-    "categoria": "Abbigliamento",
-    "prezzo": 120,
-    "immagine": "https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png",
-    "descrizione": "Scarpe Nike Air Force 1 Bianche"
-  },
-  {
     "nome": "Cintura in Pelle Zara",
     "categoria": "Abbigliamento",
     "prezzo": 40,
@@ -61,5 +47,26 @@
     "prezzo": 150,
     "immagine": "https://coldcultureworldwide.com/cdn/shop/files/take-off-fleece-red-9110300.jpg?v=1760715087&width=1000",
     "descrizione": "Felpa Cold Culture Rossa"
+  },
+  {
+    "nome": "Boxer Calvin Klein",
+    "categoria": "Abbigliamento",
+    "prezzo": 45,
+    "descrizione": "Mutande Boxer CK - Microfibre Stretch",
+    "immagine": "https://i.vgy.me/GobM2P.png"
+  },
+  {
+    "nome": "Cintura Saint Laurent Nera",
+    "categoria": "Abbigliamento",
+    "prezzo": 490,
+    "descrizione": "YSL Cintura CASSANDRE in pelle di agnello",
+    "immagine": "https://saint-laurent.dam.kering.com/m/1476f60fe4dab0a6/eCom-634440AAC8A1000_B.jpg?v=2"
+  },
+  {
+    "nome": "Seiko Presage SRPD37",
+    "categoria": "Orologi",
+    "prezzo": 419,
+    "descrizione": "Seiko Presage Cocktail Time ref. SRPD37",
+    "immagine": "https://www.seikowatches.com/it-it/-/media/Images/Product--Image/All/Seiko/2022/02/20/02/12/SRPD37J1/SRPD37J1.png?mh=1200&mw=1200"
   }
 ]
