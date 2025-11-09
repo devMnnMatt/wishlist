@@ -4,125 +4,186 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Idee di regalo per Matteo</title>
+
   <style>
     body {
       margin: 0;
       font-family: "SF Pro Display", Arial, sans-serif;
-      background: #0f0f0f;
+      background: #0d0d0f;
       color: #f0f0f0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
     }
 
     .container {
-      width: 90%;
-      max-width: 1200px;
-      padding: 20px;
+      width: 95%;
+      margin: auto;
+      padding-top: 30px;
+    }
+
+    /* ✅ Menu + Filtri */
+    .menu-box {
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(8px);
     }
 
     .filters {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 10px;
-      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
-    .filters select, .filters input {
-      padding: 8px 12px;
-      background: rgba(40, 40, 40, 0.9);
+    .filters select,
+    .filters input {
+      padding: 10px 15px;
+      background: rgba(40,40,40,0.8);
       color: #fff;
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px;
-      backdrop-filter: blur(8px);
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
+      font-size: 1rem;
     }
 
-    .filters select:focus, .filters input:focus {
-      outline: none;
-      border-color: #888;
+    /* ✅ Categoria */
+    .category-block {
+      margin-top: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      position: relative;
     }
 
-    /* 🔹 Menu a tendina scuro */
-    select option {
-      background: #1a1a1a;
-      color: #f0f0f0;
+    .category-header {
+      padding: 0 10px;
+      margin-bottom: 15px;
     }
 
-    select::-ms-expand {
-      display: none; /* rimuove la freccia su Edge */
+    .category-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ff6f6f;
+      letter-spacing: 1px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    /* ✅ Carosello */
+    .carousel-wrapper {
+      position: relative;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
       gap: 20px;
+      padding: 10px;
+      scroll-behavior: smooth;
     }
 
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ✅ Card prodotto */
     .card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      padding: 16px;
-      text-align: center;
-      backdrop-filter: blur(12px);
-      transition: all 0.3s ease;
+      min-width: 240px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 15px;
+      backdrop-filter: blur(8px);
       cursor: pointer;
+      transition: all 0.25s ease;
+      border: 1px solid rgba(255,255,255,0.15);
+      flex-shrink: 0;
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.1);
     }
 
     .card img {
       width: 100%;
-      height: 180px;
+      height: 160px;
+      border-radius: 14px;
       object-fit: cover;
-      border-radius: 12px;
     }
 
     .card h3 {
-      margin: 10px 0 5px;
-      font-size: 1.1em;
+      margin: 10px 0 3px;
+      font-size: 1.05rem;
     }
 
     .card p {
-      margin: 0;
       opacity: 0.8;
+      margin: 0;
     }
 
-    .card:last-child {
-      border: 1px solid rgba(255,255,255,0.3);
-      box-shadow: 0 0 12px rgba(255,255,255,0.15);
+    /* ✅ Frecce carosello - NASCOSTE DI DEFAULT */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+      display: none; /* <--- NASCOSTE */
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      cursor: pointer;
+      user-select: none;
+      transition: 0.2s;
+      z-index: 10;
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(6px);
     }
 
-    /* Popup */
+    .arrow-left {
+      left: -10px;
+    }
+
+    .arrow-right {
+      right: -10px;
+    }
+
+    /* ✅ Mobile migliorato */
+    @media (max-width: 600px) {
+      .card {
+        min-width: 200px;
+      }
+      .arrow {
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
+      }
+      .arrow-left { left: -5px; }
+      .arrow-right { right: -5px; }
+    }
+
+    /* ✅ POPUP */
     .modal {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
       display: none;
-      align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.6);
+      align-items: center;
+      background: rgba(0,0,0,0.65);
       backdrop-filter: blur(8px);
-      z-index: 10;
+      z-index: 1000;
     }
 
     .modal-content {
-      background: rgba(30,30,30,0.9);
-      padding: 30px;
-      border-radius: 20px;
+      background: rgba(25,25,25,0.95);
       width: 90%;
-      max-width: 500px;
-      text-align: center;
-      position: relative;
-      max-height: 90vh;
+      max-width: 520px;
+      border-radius: 18px;
+      padding: 25px;
+      max-height: 85vh;
       overflow-y: auto;
+      text-align: center;
     }
 
     .modal-content img {
@@ -135,24 +196,29 @@
 
     .close-button {
       margin-top: 20px;
-      padding: 10px 20px;
+      padding: 12px 30px;
       background: rgba(255,255,255,0.1);
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.25);
       border-radius: 12px;
       cursor: pointer;
-      font-size: 1em;
-      transition: all 0.2s ease;
+      font-size: 1rem;
+      transition: 0.2s;
     }
 
     .close-button:hover {
       background: rgba(255,255,255,0.2);
-      transform: scale(1.03);
+      transform: scale(1.05);
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
+
+<div class="container">
+
+  <!-- ✅ Menu + Filtri -->
+  <div class="menu-box">
     <div class="filters">
       <select id="categoryFilter">
         <option value="">Tutte le categorie</option>
@@ -165,102 +231,161 @@
         <option value="desc">Prezzo decrescente</option>
       </select>
     </div>
-
-    <div id="productGrid" class="grid"></div>
   </div>
 
-  <!-- Modal -->
-  <div id="productModal" class="modal">
-    <div class="modal-content">
-      <img id="modalImg" src="">
-      <h2 id="modalName"></h2>
-      <p id="modalCategory"></p>
-      <p id="modalPrice"></p>
-      <p id="modalDescription"></p>
-      <button class="close-button" onclick="closeModal()">Chiudi</button>
-    </div>
-  </div>
+  <div id="categoriesContainer"></div>
 
-  <script>
-    async function loadProducts() {
-      try {
-        const response = await fetch('prodotti.json');
-        if (!response.ok) throw new Error("Impossibile caricare prodotti.json");
-        const products = await response.json();
-        return products;
-      } catch (err) {
-        console.warn("Errore caricando prodotti.json, uso localStorage");
-        const stored = localStorage.getItem('prodotti');
-        return stored ? JSON.parse(stored) : [];
-      }
+</div>
+
+<!-- ✅ Popup -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <img id="modalImg">
+    <h2 id="modalName"></h2>
+    <p id="modalCategory"></p>
+    <p id="modalPrice"></p>
+    <p id="modalDescription"></p>
+    <button class="close-button" onclick="closeModal()">Chiudi</button>
+  </div>
+</div>
+
+<script>
+  async function loadProducts() {
+    try {
+      const response = await fetch('prodotti.json');
+      if (!response.ok) throw new Error();
+      return await response.json();
+    } catch {
+      const stored = localStorage.getItem("prodotti");
+      return stored ? JSON.parse(stored) : [];
     }
+  }
 
-    async function renderProducts() {
-      const products = await loadProducts();
-      const grid = document.getElementById('productGrid');
-      grid.innerHTML = "";
+  async function renderSite() {
+    const products = await loadProducts();
 
-      const min = parseFloat(document.getElementById('minPrice').value) || 0;
-      const max = parseFloat(document.getElementById('maxPrice').value) || Infinity;
-      const cat = document.getElementById('categoryFilter').value;
-      const sort = document.getElementById('sortOrder').value;
+    const min = parseFloat(minPrice.value) || 0;
+    const max = parseFloat(maxPrice.value) || Infinity;
+    const cat = categoryFilter.value;
+    const sort = sortOrder.value;
 
-      let filtered = products.filter(p => 
-        (cat === "" || p.categoria === cat) &&
-        p.prezzo >= min && p.prezzo <= max
-      );
+    let filtered = products.filter(p =>
+      (cat === "" || p.categoria === cat) &&
+      p.prezzo >= min &&
+      p.prezzo <= max
+    );
 
-      if (sort === "asc") filtered.sort((a,b) => a.prezzo - b.prezzo);
-      if (sort === "desc") filtered.sort((a,b) => b.prezzo - a.prezzo);
+    if (sort === "asc") filtered.sort((a, b) => a.prezzo - b.prezzo);
+    if (sort === "desc") filtered.sort((a, b) => b.prezzo - a.prezzo);
 
-      filtered.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'card';
+    const container = document.getElementById("categoriesContainer");
+    container.innerHTML = "";
+
+    const categories = [...new Set(filtered.map(p => p.categoria))];
+
+    categories.forEach(c => {
+      const block = document.createElement("div");
+      block.className = "category-block";
+
+      block.innerHTML = `
+        <div class="category-header">
+          <div class="category-title">${c.toUpperCase()}</div>
+        </div>
+
+        <div class="carousel-wrapper">
+          <div class="arrow arrow-left" data-cat="${c}">❮</div>
+          <div class="carousel" id="car_${c.replace(/\s+/g,'_')}"></div>
+          <div class="arrow arrow-right" data-cat="${c}">❯</div>
+        </div>
+      `;
+
+      container.appendChild(block);
+
+      const row = document.getElementById("car_" + c.replace(/\s+/g,'_'));
+      const items = filtered.filter(p => p.categoria === c);
+
+      items.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
         card.innerHTML = `
-          <img src="${p.immagine}" alt="${p.nome}">
+          <img src="${p.immagine}">
           <h3>${p.nome}</h3>
-          <p>${p.categoria}</p>
           <p>${p.prezzo.toFixed(2)} €</p>
         `;
         card.onclick = () => openModal(p);
-        grid.appendChild(card);
+        row.appendChild(card);
       });
-    }
-
-    async function loadCategories() {
-      const products = await loadProducts();
-      const cats = [...new Set(products.map(p => p.categoria))];
-      const select = document.getElementById('categoryFilter');
-      select.innerHTML = '<option value="">Tutte le categorie</option>';
-      cats.forEach(c => {
-        const opt = document.createElement('option');
-        opt.value = c;
-        opt.textContent = c;
-        select.appendChild(opt);
-      });
-    }
-
-    function openModal(p) {
-      document.getElementById('modalImg').src = p.immagine;
-      document.getElementById('modalName').textContent = p.nome;
-      document.getElementById('modalCategory').textContent = p.categoria;
-      document.getElementById('modalPrice').textContent = p.prezzo.toFixed(2) + " €";
-      document.getElementById('modalDescription').textContent = p.descrizione;
-      document.getElementById('productModal').style.display = "flex";
-    }
-
-    function closeModal() {
-      document.getElementById('productModal').style.display = "none";
-    }
-
-    document.querySelectorAll('.filters select, .filters input').forEach(e => {
-      e.addEventListener('input', renderProducts);
     });
 
-    window.onload = () => {
-      loadCategories();
-      renderProducts();
-    };
-  </script>
+    /* ✅ Attiva le frecce */
+    document.querySelectorAll(".arrow-left").forEach(btn => {
+      btn.onclick = () => scrollCarousel(btn.dataset.cat, -1);
+    });
+
+    document.querySelectorAll(".arrow-right").forEach(btn => {
+      btn.onclick = () => scrollCarousel(btn.dataset.cat, 1);
+    });
+
+    /* ✅ MOSTRA/NASCONDE LE FRECCE SOLO SE SERVE */
+    updateArrowsVisibility();
+  }
+
+  function scrollCarousel(category, direction) {
+    const id = "car_" + category.replace(/\s+/g, "_");
+    const carousel = document.getElementById(id);
+    carousel.scrollBy({ left: direction * 300, behavior: "smooth" });
+  }
+
+  /* ✅ Funzione per mostrare/nascondere frecce */
+  function updateArrowsVisibility() {
+    document.querySelectorAll(".category-block").forEach(block => {
+      const carousel = block.querySelector(".carousel");
+      const left = block.querySelector(".arrow-left");
+      const right = block.querySelector(".arrow-right");
+
+      if (carousel.scrollWidth > carousel.clientWidth) {
+        left.style.display = "flex";
+        right.style.display = "flex";
+      } else {
+        left.style.display = "none";
+        right.style.display = "none";
+      }
+    });
+  }
+
+  function openModal(p) {
+    modalImg.src = p.immagine;
+    modalName.textContent = p.nome;
+    modalCategory.textContent = p.categoria;
+    modalPrice.textContent = p.prezzo.toFixed(2) + " €";
+    modalDescription.textContent = p.descrizione;
+    productModal.style.display = "flex";
+  }
+
+  function closeModal() {
+    productModal.style.display = "none";
+  }
+
+  document.querySelectorAll(".filters select, .filters input")
+    .forEach(el => el.addEventListener("input", renderSite));
+
+  window.addEventListener("resize", updateArrowsVisibility);
+
+  window.onload = async () => {
+    const products = await loadProducts();
+    const categories = [...new Set(products.map(p => p.categoria))];
+
+    categoryFilter.innerHTML = `<option value="">Tutte le categorie</option>`;
+    categories.forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c;
+      opt.textContent = c;
+      categoryFilter.appendChild(opt);
+    });
+
+    renderSite();
+  };
+</script>
+
 </body>
 </html>
